@@ -6,7 +6,7 @@
         .EXAMPLE
         Update-PSGalleryResourceListing -Name 'MyModule' -Version '1.0.0' -Listed $true -APIKey 'myapikey'
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param (
         # Name of the module.
         [Parameter(Mandatory)]
@@ -33,5 +33,7 @@
         Listed                     = $Listed
     }
 
-    Invoke-RestMethod -Uri $uri -Method Post -Body $body
+    if ($PSCmdlet.ShouldProcess("module [$Name]", 'Update listing status')) {
+        Invoke-RestMethod -Uri $uri -Method Post -Body $body
+    }
 }
