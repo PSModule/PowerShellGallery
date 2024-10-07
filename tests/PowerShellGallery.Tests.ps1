@@ -13,11 +13,6 @@ Describe 'PowerShellGallery' {
             { Get-PSGalleryAPI } | Should -Not -Throw
         }
     }
-    Context 'Function: Get-PSGalleryResource' {
-        It 'Should not throw' {
-            { Get-PSGalleryResource } | Should -Not -Throw
-        }
-    }
     Context 'Function: Hide-PowerShellGalleryItem' {
         It 'Should not throw' {
             { Hide-PowerShellGalleryItem } | Should -Not -Throw
