@@ -33,7 +33,9 @@ function Remove-PowerShellGalleryContext {
             if ($script:PowerShellGallery.Config.DefaultContext -eq $ID) {
                 Write-Verbose 'Clearing default context'
                 $script:PowerShellGallery.Config.DefaultContext = $null
-                $null = Set-Context -ID $script:PowerShellGallery.DefaultConfig.ID -Context $script:PowerShellGallery.Config -Vault $script:PowerShellGallery.ContextVault
+                $configID = $script:PowerShellGallery.DefaultConfig.ID
+                $vault = $script:PowerShellGallery.ContextVault
+                $null = Set-Context -ID $configID -Context $script:PowerShellGallery.Config -Vault $vault
             }
         }
     }

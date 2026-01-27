@@ -17,6 +17,10 @@ function Test-PowerShellGalleryAccess {
 
         Tests access using the 'MyAccount' context.
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingWriteHost', '',
+        Justification = 'Is the CLI part of the module. Consistent with GitHub module pattern.'
+    )]
     [CmdletBinding()]
     [OutputType([System.Object])]
     param(
@@ -57,15 +61,15 @@ function Test-PowerShellGalleryAccess {
         # The API key validation can be done by attempting to access the API
         try {
             Write-Verbose 'Testing API connectivity...'
-            
+
             # Try to access the API root to validate connectivity
             $apiUrl = $contextObj.ApiUrl
             $headers = @{
                 'X-NuGet-ApiKey' = $apiKey
             }
 
-            # Test basic API access
-            $response = Invoke-RestMethod -Uri $apiUrl -Method Get -Headers $headers -ErrorAction Stop
+            # Test basic API access - just verify we can connect
+            $null = Invoke-RestMethod -Uri $apiUrl -Method Get -Headers $headers -ErrorAction Stop
 
             $result = [PSCustomObject]@{
                 Success     = $true

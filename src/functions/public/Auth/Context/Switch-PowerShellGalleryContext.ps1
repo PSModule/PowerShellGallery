@@ -11,6 +11,10 @@ function Switch-PowerShellGalleryContext {
 
         Switches the default PowerShell Gallery context to 'MyAccount'.
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingWriteHost', '',
+        Justification = 'Is the CLI part of the module. Consistent with GitHub module pattern.'
+    )]
     [OutputType([void])]
     [CmdletBinding(SupportsShouldProcess)]
     param(
@@ -28,14 +32,17 @@ function Switch-PowerShellGalleryContext {
         # Verify the context exists
         $context = Get-Context -ID $ID -Vault $script:PowerShellGallery.ContextVault
         if (-not $context) {
-            Write-Error "Context [$ID] not found. Use 'Get-PowerShellGalleryContext -ListAvailable' to see available contexts."
+            $msg = "Context [$ID] not found. Use 'Get-PowerShellGalleryContext -ListAvailable' to see available contexts."
+            Write-Error $msg
             return
         }
 
         if ($PSCmdlet.ShouldProcess("Default context to [$ID]", 'Switch')) {
             Write-Verbose "Switching default context to [$ID]"
             $script:PowerShellGallery.Config.DefaultContext = $ID
-            $null = Set-Context -ID $script:PowerShellGallery.DefaultConfig.ID -Context $script:PowerShellGallery.Config -Vault $script:PowerShellGallery.ContextVault
+            $configID = $script:PowerShellGallery.DefaultConfig.ID
+            $vault = $script:PowerShellGallery.ContextVault
+            $null = Set-Context -ID $configID -Context $script:PowerShellGallery.Config -Vault $vault
             Write-Host "✓ Switched to context [$ID]" -ForegroundColor Green
         }
     }

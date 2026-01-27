@@ -17,6 +17,10 @@ function Disconnect-PowerShellGallery {
         Removes the default context.
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingWriteHost', '',
+        Justification = 'Is the CLI part of the module. Consistent with GitHub module pattern.'
+    )]
     [OutputType([void])]
     param(
         # The name of the context to remove. If not specified, removes the default context.

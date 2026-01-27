@@ -50,12 +50,14 @@ function Set-PowerShellGalleryContext {
         $contextObj['ID'] = $ID
 
         if ($PSCmdlet.ShouldProcess("Context [$ID]", 'Set')) {
-            $result = Set-Context -ID $ID -Context $contextObj -Vault $script:PowerShellGallery.ContextVault -PassThru
+            $vault = $script:PowerShellGallery.ContextVault
+            $result = Set-Context -ID $ID -Context $contextObj -Vault $vault -PassThru
 
             if ($Default) {
                 Write-Debug "Setting [$ID] as default context"
                 $script:PowerShellGallery.Config.DefaultContext = $ID
-                $null = Set-Context -ID $script:PowerShellGallery.DefaultConfig.ID -Context $script:PowerShellGallery.Config -Vault $script:PowerShellGallery.ContextVault
+                $configID = $script:PowerShellGallery.DefaultConfig.ID
+                $null = Set-Context -ID $configID -Context $script:PowerShellGallery.Config -Vault $vault
             }
 
             if ($PassThru) {

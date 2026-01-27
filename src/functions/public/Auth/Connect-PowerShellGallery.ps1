@@ -27,6 +27,10 @@ function Connect-PowerShellGallery {
         'PSAvoidUsingConvertToSecureStringWithPlainText', '',
         Justification = 'The API key is received as clear text from user input.'
     )]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSAvoidUsingWriteHost', '',
+        Justification = 'Is the CLI part of the module. Consistent with GitHub module pattern.'
+    )]
     [CmdletBinding(DefaultParameterSetName = 'Interactive')]
     [OutputType([System.Object])]
     param(
@@ -59,9 +63,9 @@ function Connect-PowerShellGallery {
             if (-not $Silent) {
                 Write-Host '🌐 Opening PowerShell Gallery API key management page...' -ForegroundColor Cyan
             }
-            
+
             $apiKeyUrl = 'https://www.powershellgallery.com/account/apikeys'
-            
+
             # Try to open browser
             try {
                 if ($IsWindows -or $PSVersionTable.PSVersion.Major -le 5) {
