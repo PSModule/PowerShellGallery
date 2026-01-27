@@ -62,8 +62,21 @@ function Test-PowerShellGalleryAccess {
         try {
             Write-Verbose 'Testing API connectivity...'
 
-            # Try to access the API root to validate connectivity
+            # Validate API URL is a PowerShell Gallery endpoint for security
             $apiUrl = $contextObj.ApiUrl
+            if ($apiUrl -notmatch '^https://.*powershellgallery\.com/') {
+                Write-Warning "API URL does not appear to be a PowerShell Gallery endpoint: $apiUrl"
+                $result = [PSCustomObject]@{
+                    Success     = $false
+                    Context     = $contextObj.Name
+                    ApiUrl      = $apiUrl
+                    TestedAt    = Get-Date
+                    Message     = 'API URL validation failed - not a PowerShell Gallery endpoint'
+                    ConnectedAt = $contextObj.ConnectedAt
+                }
+                return $result
+            }
+
             $headers = @{
                 'X-NuGet-ApiKey' = $apiKey
             }

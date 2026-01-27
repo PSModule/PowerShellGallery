@@ -46,7 +46,8 @@ function Set-PowerShellGalleryContext {
 
     process {
         Write-Debug "Setting context: [$ID]"
-        $contextObj = @{} + $Context
+        # Create a copy of the context hashtable to avoid modifying the original
+        $contextObj = $Context.Clone()
         $contextObj['ID'] = $ID
 
         if ($PSCmdlet.ShouldProcess("Context [$ID]", 'Set')) {

@@ -7,6 +7,10 @@ function Get-PowerShellGalleryAccessToken {
         Retrieves the PowerShell Gallery API key from the specified context.
         Returns as SecureString by default, or as plain text with -AsPlainText.
 
+        SECURITY NOTE: Using -AsPlainText exposes the API key in plain text in memory.
+        This should only be used when necessary for API calls, and the plain text
+        value should be cleared from memory as soon as possible after use.
+
         .EXAMPLE
         Get-PowerShellGalleryAccessToken
 
@@ -16,6 +20,7 @@ function Get-PowerShellGalleryAccessToken {
         Get-PowerShellGalleryAccessToken -Context 'MyAccount' -AsPlainText
 
         Gets the API key from 'MyAccount' context as plain text.
+        WARNING: This exposes the API key in plain text - use with caution.
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSAvoidUsingConvertToSecureStringWithPlainText', '',

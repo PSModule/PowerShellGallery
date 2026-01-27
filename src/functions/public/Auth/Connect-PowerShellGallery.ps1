@@ -97,13 +97,14 @@ function Connect-PowerShellGallery {
             return
         }
 
-        # Create context object
+        # Create context object using centralized configuration
+        $config = Get-PowerShellGalleryConfig
         $context = @{
             ID          = $Name
             Name        = $Name
             ApiKey      = $ApiKey
-            GalleryUrl  = 'https://www.powershellgallery.com'
-            ApiUrl      = 'https://www.powershellgallery.com/api/v2'
+            GalleryUrl  = $config.GalleryUrl
+            ApiUrl      = $config.ApiUrl
             ConnectedAt = Get-Date
         }
 
