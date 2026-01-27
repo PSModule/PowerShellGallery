@@ -1,4 +1,4 @@
-function Switch-PowerShellGalleryContext {
+﻿function Switch-PowerShellGalleryContext {
     <#
         .SYNOPSIS
         Switch the default PowerShell Gallery context.

@@ -1,4 +1,4 @@
-function Connect-PowerShellGallery {
+﻿function Connect-PowerShellGallery {
     <#
         .SYNOPSIS
         Connects to the PowerShell Gallery by storing an API key context.

@@ -1,4 +1,4 @@
-function Disconnect-PowerShellGallery {
+﻿function Disconnect-PowerShellGallery {
     <#
         .SYNOPSIS
         Disconnect from the PowerShell Gallery by removing a stored context.

@@ -1,4 +1,4 @@
-function Test-PowerShellGalleryAccess {
+﻿function Test-PowerShellGalleryAccess {
     <#
         .SYNOPSIS
         Validates the stored API key by testing access to the PowerShell Gallery API.
