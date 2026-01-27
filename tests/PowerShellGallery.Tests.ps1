@@ -1,4 +1,10 @@
-﻿Describe 'PowerShellGallery' {
+﻿[Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+    'PSAvoidUsingConvertToSecureStringWithPlainText', '',
+    Justification = 'Test file - converting test data to SecureString for testing purposes only.'
+)]
+param()
+
+Describe 'PowerShellGallery' {
     Context 'Function: Get-PSGalleryAPI' {
         It 'Should not throw' {
             { Get-PSGalleryAPI } | Should -Not -Throw
@@ -27,7 +33,7 @@
             try {
                 $null = Disconnect-PowerShellGallery -Name $script:TestContextName -Confirm:$false -ErrorAction SilentlyContinue
             } catch {
-                # Ignore cleanup errors
+                Write-Verbose "Cleanup error ignored: $_"
             }
         }
 
@@ -66,7 +72,7 @@
             try {
                 $null = Disconnect-PowerShellGallery -Name $script:GetTestContextName -Confirm:$false -ErrorAction SilentlyContinue
             } catch {
-                # Ignore cleanup errors
+                Write-Verbose "Cleanup error ignored: $_"
             }
         }
 
@@ -95,10 +101,10 @@
             $testContextName2 = 'SwitchTestContext2_' + (Get-Random)
             $script:SwitchTestContextName1 = $testContextName1
             $script:SwitchTestContextName2 = $testContextName2
-            
+
             $secureApiKey1 = ConvertTo-SecureString -String 'test-switch-api-key-1' -AsPlainText -Force
             $secureApiKey2 = ConvertTo-SecureString -String 'test-switch-api-key-2' -AsPlainText -Force
-            
+
             Connect-PowerShellGallery -Name $testContextName1 -ApiKey $secureApiKey1 -Silent
             Connect-PowerShellGallery -Name $testContextName2 -ApiKey $secureApiKey2 -Silent
         }
@@ -109,7 +115,7 @@
                 $null = Disconnect-PowerShellGallery -Name $script:SwitchTestContextName1 -Confirm:$false -ErrorAction SilentlyContinue
                 $null = Disconnect-PowerShellGallery -Name $script:SwitchTestContextName2 -Confirm:$false -ErrorAction SilentlyContinue
             } catch {
-                # Ignore cleanup errors
+                Write-Verbose "Cleanup error ignored: $_"
             }
         }
 
@@ -159,7 +165,7 @@
             try {
                 $null = Disconnect-PowerShellGallery -Name $script:TokenTestContextName -Confirm:$false -ErrorAction SilentlyContinue
             } catch {
-                # Ignore cleanup errors
+                Write-Verbose "Cleanup error ignored: $_"
             }
         }
 
@@ -191,7 +197,7 @@
             try {
                 $null = Disconnect-PowerShellGallery -Name $script:AccessTestContextName -Confirm:$false -ErrorAction SilentlyContinue
             } catch {
-                # Ignore cleanup errors
+                Write-Verbose "Cleanup error ignored: $_"
             }
         }
 
