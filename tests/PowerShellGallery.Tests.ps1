@@ -1,4 +1,6 @@
-﻿Describe 'PowerShellGallery' {
+﻿#Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '6.0.0'; MaximumVersion = '6.*'; GUID = 'a699dea5-2c73-4616-a270-1f7abb777e71' }
+
+Describe 'PowerShellGallery' {
     Context 'Function: Get-PSGalleryAPI' {
         It 'Should not throw' {
             { Get-PSGalleryAPI } | Should -Not -Throw
